@@ -1,0 +1,1 @@
+<p>Installation sucessful!</p>
