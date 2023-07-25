@@ -1,7 +1,7 @@
 <script>
-  // A prop that receives an item object
   import Folderlist from "./Folderlist.svelte";
   import paths from "../uploads/paths.json";
+  import {selectedTagsStore} from '../stores'
   export let item = {};
   function getIcon(type) {
     if (type === "file") {
@@ -12,6 +12,8 @@
       return "❓";
     }
   }
+  let selectedTags = []
+  let inTag = false;
   let noContent = item.contents.length > 0;
   let itemName = item.name.substring(0, item.name.lastIndexOf("."));
   let itemPath = item.path
@@ -20,12 +22,17 @@
       0,
       item.path.replace("./src/uploads/pages", "").lastIndexOf(".")
     );
-  console.log(paths);
   if (paths[itemName] && paths[itemName] == itemPath) {
     itemPath = "/posts/" + itemName;
   } else {
     itemPath = "/posts" + itemPath;
   }
+  selectedTagsStore.subscribe(val=>{
+    selectedTags = val;
+    if(item.type == 'file'){
+    inTag = item.tags.filter(v=>selectedTags.includes(v)).length > 0
+    }
+  })
 </script>
 
 <div class="content">
@@ -52,10 +59,12 @@
         <Folderlist data={item.contents} />
       {/if}
     {:else}
+    {#if selectedTags.length < 1 || inTag}
       <li class={item.type} on:click={() => (window.location.href = itemPath)}>
         {getIcon(item.type)}
         {itemName}
       </li>
+      {/if}
     {/if}
   </ul>
 </div>

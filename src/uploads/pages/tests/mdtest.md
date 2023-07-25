@@ -1,5 +1,5 @@
 --- 
-date: {{'May ' + '29 ' + '2023'}}
+date: {{'May ' + '29 ' + '2023'}},
 description: In this we test md pages
 ---
 <script>

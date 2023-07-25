@@ -1,5 +1,11 @@
 <script>
     export let data;
+    let component;
+    if (data.type=='svelte') {
+        import(`./${data.page}.svelte`).then(module => {
+            component = module.default
+        })
+    }
 </script>
 
 {#if data.notFound}
@@ -8,7 +14,11 @@
     {#if data.type.includes("md")}
         {@html data.page}
     {:else}
-        <svelte:component this={data.page} />
+    {#if component}
+        <svelte:component this={component} />
+    {:else}
+    <p>Loading...</p>
+    {/if}
     {/if}
     <p>Upload date: {data.meta.date}</p>
 {/if}

@@ -10,32 +10,4 @@
 </script>
 
 <!-- A component that renders a list of items -->
-<Folderlist data={collections} />
-
-<style>
-  /* Some basic styling */
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    margin: 0.5rem;
-    padding: 0.5rem;
-    border: 1px solid gray;
-    cursor: pointer;
-  }
-
-  .file {
-    background-color: lightblue;
-  }
-
-  .folder {
-    background-color: lightgreen;
-  }
-
-  .hidden {
-    display: none;
-  }
-</style>
+<Folderlist data={collections.uploads} tags={collections.tags} />
