@@ -1,4 +1,4 @@
 {
-    "mdtest": "/md/test/mdtest",
-    "jstest": "/md/test/jstest"
+    "mdtest": "/tests/mdtest",
+    "jstest": "/tests/jstest"
 }
