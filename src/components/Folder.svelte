@@ -1,7 +1,7 @@
 <script>
   import Folderlist from "./Folderlist.svelte";
   import paths from "../uploads/paths.json";
-  import {selectedTagsStore} from '../stores'
+  import {selectedTagsStore} from '../interstitial/stores'
   export let item = {};
   function getIcon(type) {
     if (type === "file") {

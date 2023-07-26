@@ -1,6 +1,6 @@
 /** @type {import('./$types').PageLoad} */
-import { compile } from '../../../markdown'
-import { formatPage } from '../../../markdown'
+import { compile } from '../../../utils/markdown'
+import { formatPage } from '../../../utils/markdown'
 import paths from '../../../uploads/paths.json'
 import fs from 'fs'
 export async function load({ params }) {

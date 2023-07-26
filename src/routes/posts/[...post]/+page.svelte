@@ -2,7 +2,7 @@
     export let data;
     let component;
     if (data.type=='svelte') {
-        import(`./${data.page}.svelte`).then(module => {
+        import(/* @vite-ignore */`${data.page}.svelte`).then(module => {
             component = module.default
         })
     }

@@ -1,5 +1,5 @@
 <script context="module">
-import {compile} from '../../markdown'
+import {compile} from '../../utils/markdown'
 export const meta = {description:'In this we test svelte pages', date:'January 1 2000', tags:['svelte', 'test']}
 let post = '## test for svelte pages <br> <p>dynamic markdown can also be used inside the svelte code</p><br>If you dont like svelte you can just write regular html inside'
 </script>

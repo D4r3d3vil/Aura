@@ -1,5 +1,5 @@
 <script>
-  import Folderlist from "../Folderlist.svelte";
+  import Folderlist from "../../components/Folderlist.svelte";
 
   // Import the array from a JSON file
   export let data;

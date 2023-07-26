@@ -1,7 +1,7 @@
 <script>
   // Import the Item component
   import Folder from "./Folder.svelte";
-  import {selectedTagsStore} from '../stores'
+  import {selectedTagsStore} from '../interstitial/stores'
   // A prop that receives an array of items
   export let data = [];
   export let tags = [];

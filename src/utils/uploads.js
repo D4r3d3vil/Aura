@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { formatPage } from '../markdown';
+import { formatPage } from './markdown';
 export async function getUploads(dir) {
   let results = [];
   let tags = [];
