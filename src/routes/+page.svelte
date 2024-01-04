@@ -1,1 +1,3 @@
-<p>Installation sucessful!</p>
+<script>
+</script>
+<p>Installation sucessful</p>

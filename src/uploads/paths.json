@@ -1,4 +1,3 @@
 {
-    "mdtest": "/tests/mdtest",
-    "jstest": "/tests/jstest"
+    "mdtest": "tests/md/mdtest"
 }

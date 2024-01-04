@@ -1,55 +1,62 @@
 import fs from 'fs'
-import { formatPage } from './markdown';
-export async function getUploads(dir) {
-  let results = [];
-  let tags = [];
-  async function readDirectory(path) {
-    let items = fs.readdirSync(path);
-    for (let item of items) {
-      let fullPath = path + '/' + item;
-      let stats = fs.statSync(fullPath);
-      let obj = {
-        name: item,
-        path: fullPath,
-        type: null,
-        tags: [],
-        contents:[]
-      };
-      if (stats.isFile()) {
-        obj.type = 'file';
-        let filePath = obj.path
-        if(obj.name.endsWith('svelte')||obj.name.endsWith('js')){
-             import(`../uploads/${filePath.replace('./src/uploads/', '')}` /* @vite-ignore */).then(post=>{
-              if(post.meta&&post.meta.tags){
-              post.meta.tags.forEach(tag => {
-                if(!tags.includes(tag)) tags.push(tag);
-                obj.tags.push(tag);
-              })
-            }
-            }).catch(()=>'')
-        }
-        if (obj.name.endsWith("md")) {
-           import(`../uploads/${filePath.replace('./src/uploads/', '')}?raw` /* @vite-ignore */)
-          .then((post) => {
-            let meta = formatPage(post.default).attributes
-            if(meta&&meta.tags){
-            JSON.parse(meta.tags.replace(/'/g, '"')).forEach(tag => {
-                if(!tags.includes(tag)) tags.push(tag);
-                obj.tags.push(tag)
-            });
-          }
-          })
-        }
-      } else if (stats.isDirectory()) {
-        obj.type = 'folder';
-        readDirectory(fullPath);
-        obj.contents = results.filter(r => r.path.startsWith(fullPath));
-        results = results.filter(r => !r.path.startsWith(fullPath));
-      }
-      results.push(obj);
-    }
+const cache = new Map();
+export async function getUploads(dirPath) {
+  if(cache.has(dirPath)) {
+    console.log('Cache hit')
+    return cache.get(dirPath)
   }
-  readDirectory(dir);
-  console.log(results[0].contents[0].contents);
-  return {uploads:results, tags:tags};
+  let tags = []
+  async function createObject(path) {
+    let result = [];
+    let names = fs.readdirSync(path);
+    for (let name of names) {
+      let obj = {
+        type: fs.statSync(path + '/' + name).isFile() ? 'file' : 'folder',
+        path: path + '/' + name,
+        name: name,
+        contents: 0
+      };
+      if (obj.type === 'folder') {
+        obj.contents = await createObject(obj.path);
+        obj.showContents = false;
+      }
+      if (obj.type === 'file') {
+        let fileContent = fs.readFileSync(obj.path, 'utf8');
+        let metadata = getFileAttributes(fileContent);
+        obj.tags = metadata.tags;
+      }
+      result.push(obj);
+    }
+    return result.flat(); // flatten the result array
+  }
+  function getFileAttributes(fileContent) {
+    let result = {};
+    let parts = fileContent.split('---');
+    if (parts[0].trim() === '') {
+      let yaml = parts[1];
+      let lines = yaml.split('\n');
+      for (let line of lines) {
+        if (line.includes(':')) {
+          let pair = line.split(':');
+          let key = pair[0].trim();
+          let value = pair[1].trim();
+          if (value.startsWith('[') && value.endsWith(']')) {
+            value = value.slice(1, -1).split(',');
+            for (let i = 0; i < value.length; i++) {
+              value[i] = value[i].trim().replace(/['"]/g, '');
+            }
+          } else {
+            value = value.replace(/['"]/g, '');
+          }
+          result[key] = value;
+        }
+      }
+    } else {
+      return null;
+    }
+    return result;
+  }  
+  let uploadObj = {uploads: await createObject(dirPath), tags: tags}
+  cache.set(dirPath, uploadObj)
+  return uploadObj
 }

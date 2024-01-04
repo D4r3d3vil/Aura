@@ -27,16 +27,32 @@
   } else {
     itemPath = "/posts" + itemPath;
   }
-  selectedTagsStore.subscribe(val=>{
+  selectedTagsStore.subscribe(async val=>{
     selectedTags = val;
     if(item.type == 'file'){
+    if(!item.tags) return inTag = false
     inTag = item.tags.filter(v=>selectedTags.includes(v)).length > 0
+    }else{
+    async function checkFolder(folder){
+      if(folder.contents.length > 0){
+        folder.contents.forEach(async element => {
+          if(element.type=='folder'&&!inTag){
+            await checkFolder(element)
+          }else{
+            let tagChecker = element.tags.filter(v=>selectedTags.includes(v)).length > 0
+            if(tagChecker) return inTag = true
+          }
+        });      
+      }
+    }
+    await checkFolder(item)
     }
   })
 </script>
 
 <div class="content">
   <ul>
+    {#if selectedTags.length < 1 || inTag}
     {#if item.type === "folder"}
       <li
         class={item.type}
@@ -59,7 +75,6 @@
         <Folderlist data={item.contents} />
       {/if}
     {:else}
-    {#if selectedTags.length < 1 || inTag}
       <li class={item.type} on:click={() => (window.location.href = itemPath)}>
         {getIcon(item.type)}
         {itemName}
@@ -81,10 +96,14 @@
     border: 1px solid gray;
     cursor: pointer;
   }
-  .file {
+  .folder {
     background-color: lightblue;
   }
-  .folder {
+  a{
+    text-decoration: none;
+
+  }
+  .file {
     background-color: lightgreen;
   }
   .hidden {
@@ -94,7 +113,6 @@
     border-left: 1px solid black;
   }
   .noDecor {
-    text-decoration: none;
     color: black;
   }
   .open {
