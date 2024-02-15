@@ -1,7 +1,6 @@
 <script>
   import Folderlist from "./Folderlist.svelte";
   import paths from "../uploads/paths.json";
-  import {selectedTagsStore} from '../interstitial/stores'
   export let item = {};
   function getIcon(type) {
     if (type === "file") {
@@ -12,7 +11,6 @@
       return "❓";
     }
   }
-  let selectedTags = []
   let inTag = false;
   let noContent = item.contents.length > 0;
   let itemName = item.name.substring(0, item.name.lastIndexOf("."));
@@ -22,37 +20,16 @@
       0,
       item.path.replace("./src/uploads/pages", "").lastIndexOf(".")
     );
+    console.log(itemPath)
   if (paths[itemName] && paths[itemName] == itemPath) {
     itemPath = "/posts/" + itemName;
   } else {
     itemPath = "/posts" + itemPath;
   }
-  selectedTagsStore.subscribe(async val=>{
-    selectedTags = val;
-    if(item.type == 'file'){
-    if(!item.tags) return inTag = false
-    inTag = item.tags.filter(v=>selectedTags.includes(v)).length > 0
-    }else{
-    async function checkFolder(folder){
-      if(folder.contents.length > 0){
-        folder.contents.forEach(async element => {
-          if(element.type=='folder'&&!inTag){
-            await checkFolder(element)
-          }else{
-            let tagChecker = element.tags.filter(v=>selectedTags.includes(v)).length > 0
-            if(tagChecker) return inTag = true
-          }
-        });      
-      }
-    }
-    await checkFolder(item)
-    }
-  })
 </script>
 
 <div class="content">
   <ul>
-    {#if selectedTags.length < 1 || inTag}
     {#if item.type === "folder"}
       <li
         class={item.type}
@@ -80,7 +57,6 @@
         {itemName}
       </li>
       {/if}
-    {/if}
   </ul>
 </div>
 
