@@ -20,7 +20,6 @@
       0,
       item.path.replace("./src/uploads/pages", "").lastIndexOf(".")
     );
-    console.log(itemPath)
   if (paths[itemName] && paths[itemName] == itemPath) {
     itemPath = "/posts/" + itemName;
   } else {

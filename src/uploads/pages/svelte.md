@@ -7,6 +7,7 @@ image:
     url: 'https://th.bing.com/th/id/OIP.Q8rbENeM6VIecriTpMrpkQHaD_?w=313&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
     alt: 'The full Svelte logo.'
 tags: ["svelte", "blogging", "learning in public"]
+layout: 'blog'
 ---
 # SvelteKit: A Next-Gen Web Framework
 
