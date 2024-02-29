@@ -15,7 +15,6 @@
       Component = C.default;
     } catch (error) {
       notFound = true;
-      console.log(error)
     }
   });
 </script>

@@ -10,6 +10,7 @@ export default {
       ], 
       rehypePlugins: [toc],
     layout: {
-      blog: 'src/layouts/fallback.svelte'
+      IT: 'src/layouts/IT_blog.svelte',
+      fallback: 'src/layouts/fallback.svelte'
     }
 };
