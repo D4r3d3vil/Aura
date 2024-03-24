@@ -6,7 +6,7 @@ export async function getUploads(dirPath) {
     let uploadObj = uploads['/']
     return {uploads:uploadObj.uploads.filter(upload=>upload.path.endsWith(dirPath))}
   }
-  let uploadObj = {uploads: await createObject('./src/uploads/pages')}
+  let uploadObj = {uploads: await createObject('./src/uploads/pages')} //set this to the path of uploads
   uploads['/'] = uploadObj
   if(dirPath!='/') uploadObj.uploads = uploadObj.uploads.filter(upload=>upload.path.endsWith(dirPath))
   return uploadObj

@@ -1,28 +1,11 @@
 <script>
-  import { onMount } from "svelte";
   import NotFoundPage from '../../../components/404.svelte'
   export let data;
-  let Component,
-    notFound = false,
-    metadata;
 
-  onMount(async () => {
-    try {
-      const C = await import(
-        /* @vite-ignore */ `/src/uploads/pages/${data.path}.md`
-      );
-      metadata = C.metadata;
-      Component = C.default;
-    } catch (error) {
-      notFound = true;
-    }
-  });
+  $: component = data.component || null;
 </script>
-
-{#if notFound}
-<NotFoundPage></NotFoundPage>
-{:else if Component}
-      <Component />
+{#if data.notFound}
+<NotFoundPage />
 {:else}
-  <p>Loading...</p>
+<svelte:component this={component} />
 {/if}

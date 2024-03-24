@@ -9,6 +9,10 @@ image:
 tags: ["svelte", "blogging", "learning in public"]
 layout: IT
 ---
+
+<script>
+    import Counter from '$lib/components/Counter.svelte'
+</script>
 # SvelteKit: A Next-Gen Web Framework
 
 In recent years, web development frameworks have evolved rapidly, aiming to provide developers with more efficient, scalable, and enjoyable tools to build web applications. One such framework that has been generating buzz in the developer community is SvelteKit. In this blog post, we'll dive into SvelteKit and explore its features, benefits, and why it's gaining traction among developers.
@@ -16,6 +20,9 @@ In recent years, web development frameworks have evolved rapidly, aiming to prov
 ## What is SvelteKit?
 
 SvelteKit is a framework for building web applications using Svelte, a revolutionary front-end framework known for its reactive and component-based approach. SvelteKit builds upon the success of Svelte, offering a full-stack solution for developing web applications, including server-side rendering, routing, and state management.
+
+## Example:
+Svelte counter: <svelte:component this={Counter} />
 
 ## Key Features
 

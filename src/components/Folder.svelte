@@ -11,7 +11,6 @@
       return "❓";
     }
   }
-  let inTag = false;
   let noContent = item.contents.length > 0;
   let itemName = item.name.substring(0, item.name.lastIndexOf("."));
   let itemPath = item.path
