@@ -2,7 +2,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import toc from 'rehype-toc';
 export default {
-    extensions: [".md", ".svx"],
+    extensions: [".md"],
     smartypants: { dashes: 'oldschool' },
     rehypePlugins: [ rehypeSlug, [
 			rehypeAutolinkHeadings,
