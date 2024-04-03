@@ -1,0 +1,64 @@
+
+ h1{
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .category-filters {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .filter-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ddd;
+  }
+  
+  .filter-btn:hover, .filter-btn.active {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .posts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .post {
+    margin: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    width: calc(30% - 30px);
+    max-width: 300px;
+  }
+  
+  .post img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .post-content {
+    padding: 15px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .post {
+      width: calc(30% - 30px);
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    .post {
+      width: calc(50% - 30px);
+    }
+  }
+  

@@ -1,30 +1,17 @@
-import fs from 'fs'
-const uploads = {}
-export async function getUploads(dirPath) {
-  if(dirPath.includes('../')) return //possible malicious path
-  if('/' in uploads){ 
-    let uploadObj = uploads['/']
-    return {uploads:uploadObj.uploads.filter(upload=>upload.path.endsWith(dirPath))}
+export async function get_uploads(category) {
+  const posts = await import.meta.glob(`../uploads/pages/**`);
+  const foldersSet = []
+  let metadata = await Promise.all(Object.entries(posts).map(async (post) => {
+    const meta = (await post[1]()).metadata;
+    const path = post[0].replace(/\\/g, '/').replace(/(\.\.\/)+uploads\/pages\//, '')
+    const pathArray = path.split('/');
+    pathArray.pop();
+    const folderPath = pathArray.join('/');
+    if (folderPath) foldersSet.push({path: folderPath,name: folderPath.split('/').pop()});
+    return {'path': path, 'metadata': meta};
+  }));
+  const categories = [...new Set(foldersSet)]
+  if(!category) return [metadata, categories]
+  let regex = new RegExp(`${category}\/[^\\/]+$`)
+  return [metadata.filter((item) => regex.test(item.path)), categories]
   }
-  let uploadObj = {uploads: await createObject('./src/uploads/pages')} //set this to the path of uploads
-  uploads['/'] = uploadObj
-  if(dirPath!='/') uploadObj.uploads = uploadObj.uploads.filter(upload=>upload.path.endsWith(dirPath))
-  return uploadObj
-}
-async function createObject(dirPath) {
-  let result = [];
-  let names = fs.readdirSync(dirPath);
-  for (let name of names) {
-    let path = dirPath + '/' + name
-    let type = fs.statSync(path).isFile() ? 'file' : 'folder'
-    let obj = {
-      type,
-      path,
-      name,
-      contents: type=='folder'?await createObject(path):0,
-      showContents: false
-    };
-    result.push(obj);
-  }
-  return result.flat(); // flatten the result array
-}

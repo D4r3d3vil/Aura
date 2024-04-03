@@ -1,4 +1,0 @@
----
-layout: IT
----
-# Working!

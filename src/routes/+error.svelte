@@ -6,7 +6,7 @@
       }
 
       .fof h1{
-        font-size:50px;display:inline-block;padding-right:12px;animation:.5s infinite alternate type
+        font-size:50px;display:inline-block;padding-right:12px;animation:.5s infinite alternate type;
       }
       
       @keyframes type{
