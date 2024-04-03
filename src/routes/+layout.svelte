@@ -31,9 +31,9 @@
           </div>
         </div>
         <nav class="navbar">
-          <a href="/#home" class="nav-link">Home</a>
+          <a href="/" class="nav-link">Home</a>
           <a href="/#about" class="nav-link">About</a>
-          <a href="/#services" class="nav-link">Services</a>
+          <a href="/" class="nav-link">Services</a>
           <a href="/#contact" class="nav-link">Contact</a>
         </nav>
       </div>

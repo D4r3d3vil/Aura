@@ -1,5 +1,7 @@
 import { error } from "@sveltejs/kit";
 import paths from '../../../uploads/paths.json'
+import { get_uploads } from "../../../utils/uploads";
+export const prerender = true;
 export const load = async ({ params }) => {
   const slugFromPath = (path) =>
 	path.replace('../../../uploads/pages/', '').slice(0, -3)
@@ -13,3 +15,8 @@ export const load = async ({ params }) => {
     }
     throw error(400, "Page not found");
 };
+export async function entries(){
+  const [uploads, categories] = await get_uploads()
+  const slugs = uploads.map((upload)=>{return {post: upload.path.replace('.md', '')}})
+  return slugs
+}

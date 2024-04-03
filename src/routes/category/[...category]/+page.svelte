@@ -2,7 +2,6 @@
   import Posts from "../../../layouts/Blog.svelte";
 
   export let data;
+  console.log(data)
 </script>
-<div>
-<Posts posts={data.uploads} categories={data.categories}/>
-</div>
+<Posts data={data} />

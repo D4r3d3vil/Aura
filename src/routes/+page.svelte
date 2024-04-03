@@ -13,10 +13,10 @@
         </p>
       </div>
       <div class="home-hero__cta">
-        <a href="./#blog" class="btn btn--bg" themed>Blog</a>
+        <a href="/blog" class="btn btn--bg" themed>Blog</a>
       </div>
       <div class="home-hero__cta">
-        <a href="./#projects" class="btn btn--bg" themed>Projects</a>
+        <a href="/#projects" class="btn btn--bg" themed>Projects</a>
       </div>
     </div>
     <div class="home-hero__socials">
@@ -168,7 +168,7 @@
               praesentium.
             </p>
             <a
-              href="./project-1.html"
+              href="/"
               class="btn btn--med btn--theme dynamicBgClr"
               target="_blank"
               >Case Study</a
@@ -192,7 +192,7 @@
               praesentium.
             </p>
             <a
-              href="./project-2.html"
+              href="/"
               class="btn btn--med btn--theme dynamicBgClr"
               target="_blank"
               >Case Study</a
@@ -216,7 +216,7 @@
               praesentium.
             </p>
             <a
-              href="./project-3.html"
+              href="/"
               class="btn btn--med btn--theme dynamicBgClr"
               target="_blank"
               >Case Study</a
